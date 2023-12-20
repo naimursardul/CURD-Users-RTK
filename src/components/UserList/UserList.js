@@ -1,11 +1,3 @@
-/*
- * Title: User list
- * Description: User list
- * Author: Naimur Rahman
- * Date: 2023-12-18
- *
- */
-
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,9 +19,12 @@ const UserList = () => {
 
   if (loading) {
     return (
-      <div className="text-center">
-        <div className="spinner-border " role="status">
-          <span className="visually-hidden">Loading...</span>
+      <div
+        style={{ height: "80vh" }}
+        className=" d-flex justify-content-center align-items-center"
+      >
+        <div className="text-center ">
+          <div className="spinner-border " role="status"></div>
         </div>
       </div>
     );

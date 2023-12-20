@@ -1,11 +1,3 @@
-/*
- * Title: Search Box
- * Description: Search Box for User list
- * Author: Naimur Rahman
- * Date: 2023-12-17
- *
- */
-
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAllUser, getSingleUser } from "../../features/slice/curdSlice";

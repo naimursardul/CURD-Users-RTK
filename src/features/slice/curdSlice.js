@@ -41,10 +41,8 @@ export const getSingleUser = createAsyncThunk(
         `https://657c60b0853beeefdb9950da.mockapi.io/curd-user/${id}`
       );
       const result = await response.json();
-      console.log(result);
       return result;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error);
     }
   }
@@ -123,6 +121,7 @@ export const curdSlice = createSlice({
       })
       .addCase(create.fulfilled, (state, action) => {
         state.loading = false;
+        state.users.push(action.payload);
       })
       .addCase(create.rejected, (state, action) => {
         state.loading = false;
@@ -131,9 +130,12 @@ export const curdSlice = createSlice({
       .addCase(deleteUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(deleteUser.fulfilled, (state) => {
+      .addCase(deleteUser.fulfilled, (state, action) => {
         state.loading = false;
-        window.location.reload(true);
+        const { id } = action.payload;
+        if (id) {
+          state.users = state.users.filter((user) => user.id !== id);
+        }
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
@@ -142,9 +144,13 @@ export const curdSlice = createSlice({
       .addCase(updateUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(updateUser.fulfilled, (state) => {
+      .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
-        window.location.reload(true);
+        const userOnUpdate = state.users.find(
+          (user) => user.id === action.payload.id
+        );
+        const index = state.users.indexOf(userOnUpdate);
+        state.users.splice(index, 1, action.payload);
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
@@ -158,11 +164,9 @@ export const curdSlice = createSlice({
         const { id } = action.payload;
         if (id) {
           state.users = [action.payload];
-          console.log("state.users", state.users);
         } else {
           state.users = undefined;
           state.error = "User not Available";
-          console.log("state.error", state.error);
         }
       })
       .addCase(getSingleUser.rejected, (state, action) => {
