@@ -6,11 +6,17 @@ This was a mini project done while learning Redux ToolKit CURD operation.
 - Delete user
 - Search users by their id
 
-### Visit this link to see the project live on netlify
+### Visit this link to see the project live on Netlify-
 https://curd-users-rtk.netlify.app/
 
 
-#### curdslice.js file 
+## Some Learnings from this project
+
+### (1) MockAPI
+Here I use mockAPI as my backend server.
+
+### (2) curdslice.js file 
+I tried to implement create, read, delete, and put requests here.
 ```jsx
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
